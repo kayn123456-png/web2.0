@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Định Hướng Nghề Nghiệp Cho Học Sinh 12</title>
+    <style>
+        .feedback-form button {
+            background: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .feedback-form button:hover {
+            background: #218838;
+        }
+        /* CSS tổng thể */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+        }
+        
+        /* Navigation */
+        .navbar {
+            background-color: var(--primary-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            margin: 0.5rem auto;
+        }
+        
+        /* Career Paths Section */
+        .career-paths {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .path-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .path-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .card-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .path-card:hover .card-img img {
+            transform: scale(1.1);
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .card-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-content p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        /* Personality Test Section */
+        .personality-test {
+            background-color: var(--light-color);
+            padding: 3rem 1rem;
+            margin: 3rem 0;
+            border-radius: 10px;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        /* University Section */
+        .university-guide {
+            margin: 4rem 0;
+        }
+        
+        .university-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .university-card {
+            background-color: aqua;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        .university-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .university-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 1rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-col h3 {
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary-color);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-col a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Subpages */
+        .subpage-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+        
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: left;
+            padding: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+            }
+            
+            .nav-links li {
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <link rel = "icon" href ="https://sdmntprsouthcentralus.oaiusercontent.com/files/00000000-cd58-51f7-9409-1cd413df2e2b/raw?se=2025-04-04T23%3A28%3A42Z&sp=r&sv=2024-08-04&sr=b&scid=177d6020-5e91-5f81-b192-714ee31d68e2&skoid=0abefe37-d2bd-4fcb-bc88-32bccbef6f7d&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-04-04T21%3A57%3A05Z&ske=2025-04-05T21%3A57%3A05Z&sks=b&skv=2024-08-04&sig=o%2BG59I/dIzYS2/xmlNXnVFRyaZ3TH90tYpoX8pmGAo8%3D" type ="image/x-icon">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="file:///D:/Desktop/web.html" class="logo">Hướng Nghiệp 12</a>
+            <ul class="nav-links">
+                <li><a href="file:///D:/Desktop/web.html">Trang chủ</a></li>
+                    <li><a href="https://www.huongnghiepviet.com/nganh-nghe">Ngành nghề</a></li>
+                    <li><a href="https://xaydungchinhsach.chinhphu.vn/bo-giao-duc-va-dao-tao-co-47-don-vi-su-nghiep-cong-lap-truc-thuoc-119240410180434797.htm">Trường Đại học</a></li>
+                    <li><a href="https://www.mentori.vn/orientation/kien-thuc-nghe-nghiep">Kiến thức</a></li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Định Hướng Nghề Nghiệp Tương Lai</h1>
+            <p>Khám phá tiềm năng của bạn và tìm ra con đường sự nghiệp phù hợp nhất</p>
+            <a href="#career-paths" class="btn">Khám phá ngay</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Career Paths Section -->
+        <section id="career-paths">
+            <h2 class="section-title">Các Nhóm Ngành Nghề Tiêu Biểu</h2>
+            <div class="career-paths">
+                <!-- Career Path 1 -->
+                <div class="path-card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Khoa học công nghệ">
+                    </div>
+                    <div class="card-content">
+                        <h3>Khoa học & Công nghệ</h3>
+                        <p>Các ngành nghề liên quan đến công nghệ thông tin, kỹ thuật, nghiên cứu khoa học...</p>
+                        <a href="https://usth.edu.vn/nganh-cong-nghe-thong-tin-hoc-gi-ra-truong-lam-gi-7658/" target="_blank">Xem chi tiết</a>
+                    </div>
+                </div>
+                
+                <!-- Career Path 2 -->
+                <div class="path-card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Kinh tế tài chính">
+                    </div>
+                    <div class="card-content">
+                        <h3>Kinh tế & Tài chính</h3>
+                        <p>Ngân hàng, tài chính, kế toán, quản trị kinh doanh, marketing...</p>
+                        <a href="https://www.umt.edu.vn/vi-vn/nganh-kinh-te-la-gi-hoc-gi-ra-truong-lam-gi-luong-the-nao.html" target="_blank">Xem chi tiết</a>
+                    </div>
+                </div>
+                
+                <!-- Career Path 3 -->
+                <div class="path-card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1530026186672-2cd00ffc50fe?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Y tế sức khỏe">
+                    </div>
+                    <div class="card-content">
+                        <h3>Y tế & Sức khỏe</h3>
+                        <p>Bác sĩ, dược sĩ, điều dưỡng, y sinh học, dinh dưỡng...</p>
+                        <a href="https://truongcaodangykhoapnt.edu.vn/nganh-y-te/" target="_blank">Xem chi tiết</a>
+                    </div>
+                </div>
+                
+                <!-- Career Path 4 -->
+                <div class="path-card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80" alt="Giáo dục đào tạo">
+                    </div>
+                    <div class="card-content">
+                        <h3>Giáo dục & Đào tạo</h3>
+                        <p>Giáo viên, giảng viên, nghiên cứu giáo dục, tâm lý học...</p>
+                        <a href="https://glints.com/vn/blog/nganh-giao-duc-hoc-ra-lam-gi/" target="_blank">Xem chi tiết</a>
+                    </div>
+                </div>
+                
+                <!-- Career Path 5 -->
+                <div class="path-card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Nghệ thuật sáng tạo">
+                    </div>
+                    <div class="card-content">
+                        <h3>Nghệ thuật & Sáng tạo</h3>
+                        <p>Thiết kế, kiến trúc, nghệ thuật biểu diễn, truyền thông...</p>
+                        <a href="https://hcmussh.edu.vn/tin-tuc/gioi-thieu-nganh-nghe-thuat-hoc" target="_blank">Xem chi tiết</a>
+                    </div>
+                </div>
+                
+                <!-- Career Path 6 -->
+                <div class="path-card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Nông lâm ngư nghiệp">
+                    </div>
+                    <div class="card-content">
+                        <h3>Nông - Lâm - Ngư nghiệp</h3>
+                        <p>Kỹ thuật nông nghiệp, lâm nghiệp, thủy sản, công nghệ thực phẩm...</p>
+                        <a href="https://jobsgo.vn/blog/nong-nghiep-gom-nhung-nganh-nao/" target="_blank">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Personality Test Section -->
+        <section class="personality-test">
+            <div class="test-container">
+                <h2 class="section-title">Trắc Nghiệm Tính Cách Nghề Nghiệp</h2>
+                <p>Khám phá tính cách của bạn và tìm ra ngành nghề phù hợp nhất với bản thân</p>
+                <div class="media-container" style="margin: 2rem 0;">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/GFDkNeq2EXg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <a href="https://mbti.vn/" target="_blank">Làm trắc nghiệm ngay</a>
+            </div>
+        </section>
+
+        <!-- University Guide Section -->
+        <section class="university-guide">
+            <h2 class="section-title">Hệ Thống Các Trường Đại Học</h2>
+            <div class="university-grid">
+                <!-- University 1 -->
+                <div class="university-card">
+                    <h3>Đại học Bách Khoa Hà Nội</h3>
+                    <p>Trường đào tạo kỹ thuật - công nghệ hàng đầu Việt Nam</p>
+                    <a href="https://www.hust.edu.vn/">Xem chi tiết →</a>
+                </div>
+                
+                <!-- University 2 -->
+                <div class="university-card">
+                    <h3>Đại học Kinh tế Quốc dân</h3>
+                    <p>Trường top đầu về đào tạo khối ngành kinh tế</p>
+                    <a href="https://www.neu.edu.vn/">Xem chi tiết →</a>
+                </div>
+                
+                <!-- University 3 -->
+                <div class="university-card">
+                    <h3>Đại học Y Hà Nội</h3>
+                    <p>Trường y dược chất lượng cao với bề dày lịch sử</p>
+                    <a href="https://hmu.edu.vn/">Xem chi tiết →</a>
+                </div>
+                
+                <!-- University 4 -->
+                <div class="university-card">
+                    <h3>Đại học Sư phạm Hà Nội</h3>
+                    <p>Trường đào tạo giáo viên chất lượng cao</p>
+                    <a href="https://hnue.edu.vn/">Xem chi tiết →</a>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="https://xaydungchinhsach.chinhphu.vn/bo-giao-duc-va-dao-tao-co-47-don-vi-su-nghiep-cong-lap-truc-thuoc-119240410180434797.htm" target="_blank">Xem tất cả các trường</a>
+            </div>
+        </section>
+
+        <!-- Career Knowledge Section -->
+        <section style="margin: 4rem 0;">
+            <h2 class="section-title">Kiến Thức Hướng Nghiệp</h2>
+            <div class="career-paths">
+                <!-- Knowledge 1 -->
+                <div class="path-card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Xu hướng nghề nghiệp">
+                    </div>
+                    <div class="card-content">
+                        <h3>Xu hướng nghề nghiệp 2025-2030</h3>
+                        <p>Các ngành nghề hot và có nhu cầu nhân lực cao trong tương lai</p>
+                        <a href="https://timviec365.vn/blog/xu-huong-nghe-nghiep-nam-2025-new5757.html" target="_blank">Đọc thêm</a>
+                    </div>
+                </div>
+                
+                <!-- Knowledge 2 -->
+                <div class="path-card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Kỹ năng mềm">
+                    </div>
+                    <div class="card-content">
+                        <h3>Kỹ năng mềm cần thiết</h3>
+                        <p>Những kỹ năng quan trọng giúp bạn thành công trong mọi ngành nghề</p>
+                        <a href="https://thuvienphapluat.vn/lao-dong-tien-luong/ky-nang-mem-la-gi-cac-ky-nang-mem-can-thiet-cho-nguoi-lao-dong-hien-nay-la-gi-10357.html" target="_blank">Đọc thêm</a>
+                    </div>
+                </div>
+                
+                <!-- Knowledge 3 -->
+                <div class="path-card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Phỏng vấn xin việc">
+                    </div>
+                    <div class="card-content">
+                        <h3>Kinh nghiệm phỏng vấn</h3>
+                        <p>Bí quyết để có buổi phỏng vấn thành công và gây ấn tượng tốt</p>
+                        <a href="https://jobsgo.vn/blog/kinh-nghiem-phong-van/" target="_blank">Đọc thêm</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+<div class="container">
+        <h2>Biểu mẫu phản hồi</h2>
+        <form class="feedback-form">
+            <label for="name">Họ và tên:</label>
+            <input type="text" id="name" name="name" required></br>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required></br>
+            
+            <label for="feedback">Ý kiến đóng góp:</label>
+            <textarea id="feedback" name="feedback" rows="4" required></textarea></br>
+            
+            <button type="submit">Gửi phản hồi</button>
+        </form>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <!-- Column 1 -->
+            <div class="footer-col">
+                <h3>Về chúng tôi</h3>
+                <p>Hệ thống định hướng nghề nghiệp toàn diện dành cho học sinh lớp 12</p>
+                <div class="social-links">
+                    <a href="#"><i class="https://www.facebook.com/share/18iHt7Y8ER/"></i></a>
+                    <a href="#"><i class="https://www.youtube.com/@khoivo4824"></i></a>
+                    <a href="#"><i class="https://www.tiktok.com/@bb_p.k.h?is_from_webapp=1&sender_device=pc"></i></a>
+                </div>
+            </div>
+            
+            <!-- Column 2 -->
+            <div class="footer-col">
+                <h3>Liên kết nhanh</h3>
+                <ul>
+                    <li><a href="file:///D:/Desktop/web.html">Trang chủ</a></li>
+                    <li><a href="https://www.huongnghiepviet.com/nganh-nghe">Ngành nghề</a></li>
+                    <li><a href="https://xaydungchinhsach.chinhphu.vn/bo-giao-duc-va-dao-tao-co-47-don-vi-su-nghiep-cong-lap-truc-thuoc-119240410180434797.htm">Trường Đại học</a></li>
+                    <li><a href="https://www.mentori.vn/orientation/kien-thuc-nghe-nghiep">Kiến thức</a></li>
+                </ul>
+            </div>
+            
+            <!-- Column 3 -->
+            <div class="footer-col">
+                <h3>Tài nguyên</h3>
+                <ul>
+                    <li><a href="https://tuyensinhso.vn/">Tuyển sinh số</a></li>
+                    <li><a href="https://www.thongtintuyensinh.vn/Default.htm">Thông tin tuyển sinh</a></li>
+                    <li><a href="https://vieclam24h.vn/?utm_source=coccoc&utm_medium=cpc&utm_campaign=AWO_Digital_Coccoc_Conversion_NTV_Search_Brand&utm_term=vieclam24h&utm_content=43629644&ctm_event_id=1354003236">Việc làm 24h</a></li>
+                </ul>
+            </div>
+            
+            <!-- Column 4 -->
+            <div class="footer-col">
+                <h3>Liên hệ</h3>
+                <ul>
+                    <li>Email: info@huongnghiep12.edu.vn</li>
+                    <li>Hotline: 1900 1234</li>
+                    <li>Địa chỉ: 234 haibatung-hn</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>© 2025 Hướng Nghiệp 12. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
